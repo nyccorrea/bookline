@@ -17,7 +17,7 @@ public class Testelogin {
         CadastrarDisc cadastrarDisc = discente.new CadastrarDisc();
         cadastrarDisc.realizarCadastroDisc(discente, "Paula", "11111", "123-45-0009", "paula@example.com", "senha1234");
 
-        //teste cadastra funcionario
+        //teste cadastrar funcionario
         CadastrarFunc cadastrarFunc = funcionario.new CadastrarFunc();
         cadastrarFunc.realizarCadastroFunc(funcionario, "Ana Maria", "12345", "123-45-6789", "anamaria@example.com", "senha123");
 
