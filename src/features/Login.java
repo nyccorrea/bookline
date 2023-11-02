@@ -1,31 +1,63 @@
 package features;
 
-import users.Discente;
-import users.Funcionario;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Login {
-    //método sem retorno para realizar login.
-    public void realizarLogin(Discente email_disc, Discente senha_disc, Funcionario email_func, Funcionario senha_func){
 
-        Scanner scanner = new Scanner(System.in);
+    // variaveis que armazenam valores informados para a entrada no sistema
+    public String email_informado;
+    public String senha_informada;
 
-        //bloco que pega os inputs para usar na validação
-        System.out.println("--------- LOGIN ---------");
-        System.out.print("Email: ");
-        String email_informado = scanner.nextLine();
-        System.out.print("Senha: ");
-        String senha_informada = scanner.nextLine();
+    // Método para carregar email e senha salvos no arquivo "discente.txt"
+    private String[] carregarDadosSalvosDiscente() {
+        String[] emailESenhaDiscente = new String[2];
 
-        if(email_informado.equals(email_func.getEmail_func()) && senha_informada.equals(senha_func.getSenha_func())){
-            System.out.println("Login efetuado com sucesso!");
+        try (BufferedReader reader = new BufferedReader(new FileReader("discente.txt"))) {
+            // Lê e descarta as três primeiras linhas (não usadas)
+            for (int i = 0; i < 3; i++) {
+                reader.readLine();
+            }
+            emailESenhaDiscente[0] = reader.readLine(); // Lê a 4ª linha do arquivo (email)
+            emailESenhaDiscente[1] = reader.readLine(); // Lê a 5ª linha do arquivo (senha)
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else if(email_informado.equals(email_disc.getEmail_disc()) && senha_informada.equals(senha_disc.getSenha_disc())){
-            System.out.println("Login efetuado com sucesso!");
+
+        return emailESenhaDiscente;
+    }
+
+    // Método para carregar email e senha salvos no arquivo "funcionario.txt"
+    private String[] carregarDadosSalvosFuncionario() {
+        String[] emailESenhaFuncionario = new String[2];
+
+        try (BufferedReader reader = new BufferedReader(new FileReader("funcionario.txt"))) {
+            // Lê e descarta as três primeiras linhas (não usadas)
+            for (int i = 0; i < 3; i++) {
+                reader.readLine();
+            }
+            emailESenhaFuncionario[0] = reader.readLine(); // Lê a 4ª linha do arquivo (email)
+            emailESenhaFuncionario[1] = reader.readLine(); // Lê a 5ª linha do arquivo (senha)
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        else {
+
+        return emailESenhaFuncionario;
+    }
+
+    // método sem retorno para realizar login.
+    public void realizarLogin(String email_disc, String senha_disc, String email_func, String senha_func) {
+
+        String[] emailSenhaDiscente = carregarDadosSalvosDiscente();
+        String[] emailSenhaFuncionario = carregarDadosSalvosFuncionario();
+
+        if (email_informado.equals(emailSenhaFuncionario[0]) && senha_informada.equals(emailSenhaFuncionario[1])) {
+            System.out.println("Login efetuado com sucesso como Funcionário!");
+        }else if (email_informado.equals(emailSenhaDiscente[0]) && senha_informada.equals(emailSenhaDiscente[1])) {
+            System.out.println("Login efetuado com sucesso como Discente!");
+        } else {
             System.out.println("Email ou senha incorretas, tente novamente!");
         }
-        scanner.close();
     }
 }
