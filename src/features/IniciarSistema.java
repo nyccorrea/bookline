@@ -1,5 +1,6 @@
 package features;
 
+import tests.TesteLivro;
 import users.Funcionario;
 import users.Discente;
 
@@ -18,7 +19,6 @@ public class IniciarSistema {
         CadastrarFunc func = new CadastrarFunc();
         Discente discente = new Discente();
         CadastrarDisc disc = new CadastrarDisc();
-
         //inicia o sistema
         Scanner scanner = new Scanner(System.in);
         System.out.println("------------------ BEM-VINDO AO BOOKLINE ------------------");
@@ -36,6 +36,7 @@ public class IniciarSistema {
 
             //valida email e senha
             login.realizarLogin(discente.getEmail_disc(), discente.getSenha_disc(), funcionario.getEmail_func(), funcionario.getSenha_func());
+            TesteLivro.catalogo();
         }else if(resposta == 2){
             //bloco que pega os inputs para usar no cadastro do sistema
             System.out.println("---------------------- Cadastrar-se ----------------------");

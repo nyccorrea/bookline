@@ -6,7 +6,8 @@ import features.Estoque;
 import features.Livro;
 
 public class TesteLivro {
-    public static void main(String[] args) {
+
+    public static void catalogo() {
        ArrayList<Livro> ll = new ArrayList<>();
         Estoque estoque = new Estoque();
        Livro livro1 = new Livro("sing", "shilin", 2000);
