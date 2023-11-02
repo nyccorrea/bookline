@@ -15,7 +15,6 @@ public class Livro{
         this.autor = autor;
         this.anoPublicacao = anoPublicacao;
         this.emEstoque = true;
-        System.out.println("Livro cadastrado com sucesso!");
     }
     public int getId() {
         return id;
@@ -45,7 +44,7 @@ public class Livro{
     public void emprestar(int id) {
         if (id == getId() && getEmEstoque()) {
             emEstoque = false;
-            System.out.println("O livro "+getId()+" foi emprestado.");
+            System.out.println("O livro "+getTitulo()+" foi emprestado.");
         } else {
             System.out.println("O livro não está disponível no estoque no momento.");
         }
@@ -53,7 +52,7 @@ public class Livro{
     public void devolver(int id) {
         if (id == getId() && !getEmEstoque()) {
             emEstoque = true;
-            System.out.println("O livro foi devolvido com sucesso.");
+            System.out.println("O livro "+getTitulo()+" foi devolvido com sucesso.");
         } else {
             System.out.println("Este livro já está no estoque.");
         }

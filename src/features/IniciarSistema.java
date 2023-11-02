@@ -1,6 +1,5 @@
 package features;
 
-import tests.TesteLivro;
 import users.Funcionario;
 import users.Discente;
 
@@ -36,7 +35,8 @@ public class IniciarSistema {
 
             //valida email e senha
             login.realizarLogin(discente.getEmail_disc(), discente.getSenha_disc(), funcionario.getEmail_func(), funcionario.getSenha_func());
-            TesteLivro.catalogo();
+           // mostra livros
+            Catalogo.main(args);
         }else if(resposta == 2){
             //bloco que pega os inputs para usar no cadastro do sistema
             System.out.println("---------------------- Cadastrar-se ----------------------");
@@ -78,6 +78,7 @@ public class IniciarSistema {
                 disc.realizarCadastroDisc(discente, nome, matricula, cpf, email, senha);
                 //armazena os dados do discente para o arquivo "discente.txt"
                 SalvarDiscente.salvarDadosDiscente(discente);
+                Catalogo.main(args);
             }else{
                 System.out.println("Valor inválido!");
             }
