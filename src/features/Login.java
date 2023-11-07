@@ -1,63 +1,52 @@
 package features;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.Scanner;
+
+import features.cadastro.CadastrarDisc;
+import features.cadastro.CadastrarFunc;
+import users.Discente;
+import users.Funcionario;
 
 public class Login {
 
-    // variaveis que armazenam valores informados para a entrada no sistema
-    public String email_informado;
-    public String senha_informada;
-
-    // Método para carregar email e senha salvos no arquivo "discente.txt"
-    private String[] carregarDadosSalvosDiscente() {
-        String[] emailESenhaDiscente = new String[2];
-
-        try (BufferedReader reader = new BufferedReader(new FileReader("discente.txt"))) {
-            // Lê e descarta as três primeiras linhas (não usadas)
-            for (int i = 0; i < 3; i++) {
-                reader.readLine();
+    // valida acesso do funcionario no sistema através do arrayList
+    public boolean validarAcessoFunc(String emailUsuario, String senha) {
+        //instância para poder usar o ArrayList de discentes cadastrados
+        CadastrarFunc instanciaArrayFunc = new CadastrarFunc();
+    
+        for (Funcionario funcionario : instanciaArrayFunc.listaFuncionarios) {
+            if (funcionario.getEmail_func().equals(emailUsuario) && funcionario.getSenha_func().equals(senha)) {
+                return true; // Acesso válido
             }
-            emailESenhaDiscente[0] = reader.readLine(); // Lê a 4ª linha do arquivo (email)
-            emailESenhaDiscente[1] = reader.readLine(); // Lê a 5ª linha do arquivo (senha)
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
-        return emailESenhaDiscente;
+        return false; // Acesso inválido
     }
 
-    // Método para carregar email e senha salvos no arquivo "funcionario.txt"
-    private String[] carregarDadosSalvosFuncionario() {
-        String[] emailESenhaFuncionario = new String[2];
-
-        try (BufferedReader reader = new BufferedReader(new FileReader("funcionario.txt"))) {
-            // Lê e descarta as três primeiras linhas (não usadas)
-            for (int i = 0; i < 3; i++) {
-                reader.readLine();
+    // valida acesso do discente no sistema através do arrayList
+    public boolean validarAcessoDisc(String emailUsuario, String senha) {
+        //instância para poder usar o ArrayList de discentes cadastrados
+        CadastrarDisc instanciaArrayDisc = new CadastrarDisc();
+        for (Discente discente : instanciaArrayDisc.listaDiscentes) {
+            if (discente.getEmail_disc().equals(emailUsuario) && discente.getSenha_disc().equals(senha)) {
+                return true; // Acesso válido
             }
-            emailESenhaFuncionario[0] = reader.readLine(); // Lê a 4ª linha do arquivo (email)
-            emailESenhaFuncionario[1] = reader.readLine(); // Lê a 5ª linha do arquivo (senha)
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
-        return emailESenhaFuncionario;
+        return false; // Acesso inválido
     }
 
-    // método sem retorno para realizar login.
-    public void realizarLogin(String email_disc, String senha_disc, String email_func, String senha_func) {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Login login = new Login(); // Instância da classe Login
 
-        String[] emailSenhaDiscente = carregarDadosSalvosDiscente();
-        String[] emailSenhaFuncionario = carregarDadosSalvosFuncionario();
+        System.out.println("--------- LOGIN ---------");
+        System.out.print("Email: ");
+        String email_informado = scanner.nextLine();
+        System.out.print("Senha: ");
+        String senha_informada = scanner.nextLine();
 
-        if (email_informado.equals(emailSenhaFuncionario[0]) && senha_informada.equals(emailSenhaFuncionario[1])) {
-            System.out.println("Login efetuado com sucesso como Funcionário!");
-        }else if (email_informado.equals(emailSenhaDiscente[0]) && senha_informada.equals(emailSenhaDiscente[1])) {
-            System.out.println("Login efetuado com sucesso como Discente!");
-        } else {
-            System.out.println("Email ou senha incorretas, tente novamente!");
-        }
+        login.validarAcessoDisc(email_informado, senha_informada); // validar o acesso para discente
+        login.validarAcessoFunc(email_informado, senha_informada); // valida acesso para funcionário
+
+        scanner.close();
     }
 }
