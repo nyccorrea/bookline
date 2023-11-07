@@ -30,6 +30,7 @@ public class Catalogo {
         System.out.println("Digite 1 para emprestar livro");
         System.out.println("Digite 2 para devolver livro");
         int escolha = sc.nextInt();
+
         switch (escolha) {
             case 1:
                 System.out.println("Digite o id do livro que voçê quer: ");
@@ -53,5 +54,6 @@ public class Catalogo {
                 System.out.println("Número inválido!");
                 break;
         }
+        sc.close();
     }
 }
